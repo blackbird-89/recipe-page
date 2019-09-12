@@ -46,7 +46,6 @@ export default class RecipeDetails extends Component {
   // }
 
   render() {
-    console.log(this.state.recipe);
     const {
       image_url,
       publisher,
@@ -56,6 +55,9 @@ export default class RecipeDetails extends Component {
       ingredients
     } = this.state.recipe;
 
+    const { handleIndex } = this.props;
+    console.log(this.props);
+
     return (
       <React.Fragment>
         <div className="container">
@@ -64,6 +66,7 @@ export default class RecipeDetails extends Component {
               <button
                 type="button"
                 className="btn btn-warning mb-5 text-capitalize"
+                onClick={() => handleIndex(1)} //we are passing an argument here(index) so we use arrow function
               >
                 back to recipe list
               </button>
