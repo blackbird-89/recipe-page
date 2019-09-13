@@ -9,25 +9,27 @@ class App extends Component {
     recipes: recipes,
     url:
       "https://www.food2fork.com/api/search?key=a2bff86e50cb02486313d30efc836bbd",
+    baseUrl:
+      "https://www.food2fork.com/api/search?key=a2bff86e50cb02486313d30efc836bbd",
     details_id: 35384,
     pageIndex: 1,
     search: "",
     query: "&q="
   };
 
-  // async getRecipes() {
-  //   try {
-  //     const data = await fetch(this.state.url);
-  //     const jsonData = await data.json();
-  //     this.setState({ recipes: jsonData.recipes });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  async getRecipes() {
+    try {
+      const data = await fetch(this.state.url);
+      const jsonData = await data.json();
+      this.setState({ recipes: jsonData.recipes });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  // componentDidMount() {
-  //   this.getRecipes();
-  // }
+  componentDidMount() {
+    this.getRecipes();
+  }
 
   //conditional rendering -- navigating between recipeList and recipeList components
   displayPage = index => {
@@ -83,6 +85,15 @@ class App extends Component {
   handleSubmit = e => {
     e.preventDefault();
     // console.log("submittinf");
+    const { baseUrl, query, search } = this.state;
+    this.setState(
+      () => {
+        return { url: `${baseUrl}${query}${search}`, search: "" };
+      },
+      () => {
+        this.getRecipes();
+      }
+    );
   };
 
   render() {
